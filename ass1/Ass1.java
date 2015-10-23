@@ -45,10 +45,6 @@ class Ass1{
 		System.out.println(lowerQuartilePosition);
 		upperQuartilePosition = (int)(Math.ceil(buffer.length*0.75));
 		
-		
-		
-		System.out.println(isOdd);
-		
 		for (int i = 0; i < lineCount; i++){
 			buffer[i] = scanner.nextInt();
 			
