@@ -6,7 +6,7 @@ class Ass1{
 	public static void main(String[] args)
 	throws FileNotFoundException {
 		//Relative path to file
-		String fileName = "test.txt";
+		String fileName = "ages.txt";
 		
 		int lineCount = 0;
 		File file = new File(fileName);
@@ -35,15 +35,15 @@ class Ass1{
 		{
 			isOdd = true;
 		}
-		medianPosition = (int)(Math.ceil((double)buffer.length/2));
+		medianPosition = (int)(Math.ceil(buffer.length/2.0));
 		if (!isOdd)
 		{
 			medianPosition += 1;
 		}
 		System.out.println(medianPosition);
-		lowerQuartilePosition = (int)(Math.ceil((double)medianPosition/2));
+		lowerQuartilePosition = (int)(Math.ceil(medianPosition/2.0));
 		System.out.println(lowerQuartilePosition);
-		upperQuartilePosition = (int)(Math.ceil((double)buffer.length*0.75));
+		upperQuartilePosition = (int)(Math.ceil(buffer.length*0.75));
 		
 		
 		
