@@ -40,9 +40,7 @@ class Ass1{
 		{
 			medianPosition += 1;
 		}
-		System.out.println(medianPosition);
 		lowerQuartilePosition = (int)(Math.ceil(medianPosition/2.0));
-		System.out.println(lowerQuartilePosition);
 		upperQuartilePosition = (int)(Math.ceil(buffer.length*0.75));
 		
 		for (int i = 0; i < lineCount; i++){
