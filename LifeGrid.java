@@ -1,7 +1,7 @@
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.lang.Math.*;
+import java.lang.Math;
 
 class LifeGrid
 {
@@ -134,22 +134,26 @@ class LifeGrid
       }
     }
 
-    return count-1;
+    return Math.max(count, 0);
   }
 
-  public int[][] computeRules(int x, int y, int numberOfNeighbours, boolean filled, int[][] grid)
+  public int[][] computeRules(int x, int y, int numberOfNeighbours, boolean filled, int[][] newGrid)
   {
-    if (filled && numberOfNeighbours < 2 || numberOfNeighbours > 3)
-      grid[y][x] = 0;
-    else if (!filled && (numberOfNeighbours == 2 || numberOfNeighbours == 3))
-      grid[y][x] = 1;
-    return grid;
+    if (filled && (numberOfNeighbours < 2 || numberOfNeighbours > 3))
+      newGrid[y][x] = 0;
+    else if (!filled && numberOfNeighbours == 3)
+      newGrid[y][x] = 1;
+    return newGrid;
   }
 
   public int[][] generation()
   {
     int[][] newGrid = new int[grid.length][grid[0].length];
-    System.arraycopy(grid, 0, newGrid, 0, grid.length);
+    System.arraycopy(this.grid, 0, newGrid, 0, this.grid.length);
+
+    //TEST
+    System.out.println("OldGrid:" + this.grid[0][1] + this.neighbours(1, 0) + this.isCellFilled(1, 0));
+    System.out.println("NewGrid:" + newGrid[0][1]);
 
     for (int i = 0; i < grid.length; i++)
     {
@@ -158,12 +162,15 @@ class LifeGrid
         newGrid = computeRules(j, i, this.neighbours(j, i), this.isCellFilled(j, i), newGrid);
       }
     }
+    //TEST
+    System.out.println("NewGrid:" + newGrid[0][1]);
+
     return newGrid;
   }
 
   public void run()
   {
-    grid = generation();
+    this.grid = generation();
     currentGeneration++;
     show();
   }
