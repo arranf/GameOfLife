@@ -10,14 +10,25 @@ class LifeGridTest
     LifeGrid lifeGrid = new LifeGrid(x, y, filename);
     lifeGrid.show();
 
-    System.out.println("******Neighbours:" + lifeGrid.neighbours(1, 0) + "******");
     if(args.length > 3 && args[3] != null)
     {
       for (int i = 0; i < (Integer.parseInt(args[3])-1); i++)
       {
         lifeGrid.run();
-        System.out.println("******Neighbours:" + lifeGrid.neighbours(1, 0) + "******");
       }
     }
   }
 }
+
+//    _-====-__-======-__-========-_____-============-__
+//            _(                                                 _)
+//            OO(                                                   )_
+//            0  (_                                                   _)
+//            o0     (_                                                _)
+//            o         '=-___-===-_____-========-___________-===-dwb-='
+//            .o                                _________
+//            . ______          ______________  |         |      _____
+//            _()_||__|| ________ |            |  |_________|   __||___||__
+//            (BNSF 1995| |      | |            | __Y______00_| |_         _|
+//            /-OO----OO""="OO--OO"="OO--------OO"="OO-------OO"="OO-------OO"=P
+//            #####################################################################
