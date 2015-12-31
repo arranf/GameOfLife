@@ -17,6 +17,7 @@ class LifeGrid
     File file = new File(filename);
     grid = new int[y][x];
     neighboursGrid = new int[y][x];
+    currentGeneration = 0;
 
     try {
       Scanner scanner = new Scanner(file);
@@ -48,31 +49,43 @@ class LifeGrid
 
   }
 
+  public LifeGrid(int x, int y)
+  {
+    grid = new int[y][x];
+    neighboursGrid = new int[y][x];
+    currentGeneration = 0;
+      for (int i = 0; i < y; i++)
+      {
+          for (int j = 0; j < x; j++)
+          {
+              if (Math.random() < 0.5)
+              {
+                  //grid[y][x]
+                  grid[i][j] = 1;
+              } else
+              {
+                  grid[i][j] = 0;
+              }
+          }
+      }
+  }
+
   public void show()
   {
     System.out.println("Current Generation: " + currentGeneration);
-    String topLine = " ";
     for (int i = 0; i < grid.length; i++)
     {
-      topLine += i;
-    }
-    System.out.println(topLine);
-
-    for (int i = 0; i < grid.length; i++)
-    {
-      String line = ""+i; // Vertical
       for (int j = 0; j < grid[i].length; j++)
       {
         if (grid[i][j] == 1)
         {
-          line += "*";
+          GameOfLife.DrawCell(j, i, true);
         }
         else
         {
-          line += " ";
+            GameOfLife.DrawCell(j, i, false);
         }
       }
-      System.out.println(line);
     }
   }
 
