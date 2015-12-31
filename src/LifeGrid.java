@@ -80,7 +80,7 @@ class LifeGrid
 
   public void show()
   {
-    System.out.println("Current Generation: " + currentGeneration);
+    GameOfLife.tGenerationCount_SetText("Current Generation: " + currentGeneration);
     for (int i = 0; i < grid.length; i++)
     {
       for (int j = 0; j < grid[i].length; j++)
@@ -115,14 +115,6 @@ class LifeGrid
   public int getCell(int x, int y)
   {
     return grid[y][x];
-  }
-
-  public String getCellString(int x, int y)
-  {
-    if (getCell(x, y) == 1)
-    return "*";
-    else
-    return " ";
   }
 
   public boolean isCellFilled(int x, int y)
@@ -189,14 +181,6 @@ class LifeGrid
     grid = generation();
     currentGeneration++;
     show();
-  }
-
-  public void runFor(int iterations) throws InterruptedException {
-    for (int i = 0; i < iterations; i++)
-    {
-      run();
-        Thread.sleep(500);
-    }
   }
 
   }
