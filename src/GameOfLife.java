@@ -15,13 +15,14 @@ import java.util.Map;
 public class GameOfLife extends Application {
 
     private LifeGrid lifeGrid;
-    private static int x = 10;
+    private static int x = 30;
     private static String fileName;
-    private static int y = 10;
-    private static int cycle;
+    private static int y = 30;
+    private static Integer cycle;
 
     private static GraphicsContext graphicsContext;
     private Stage primaryStage;
+    private static Button btGeneration;
 
     private final static int SQUARESIZE = 16;
     private final static Color CELLALIVE = Color.BLACK;
@@ -48,23 +49,26 @@ public void start(Stage primaryStage){
         lifeGrid = new LifeGrid(x, y);
 
     VBox vbRoot = new VBox(8); //Vertical column with spacing of 8
-//    HBox hbButtons = new HBox(5); //Horizontal row with spacing of 5
-//    Button btReset = new Button("Reset");
-//    btReset.setOnAction(new resetButtonHandler());
-//    Button btClose = new Button("Close");
-//    btClose.setOnAction(new closeButtonHandler());
-//    hbButtons.getChildren().addAll(btReset, btClose);
-//    hbButtons.setAlignment(Pos.CENTER_RIGHT);
+    HBox hbButtons = new HBox(5); //Horizontal row with spacing of 5
+    Button btReset = new Button("Reset");
+    btReset.setOnAction(new ResetButtonHandler());
+    Button btClose = new Button("Close");
+    btClose.setOnAction(new CloseButtonHandler());
+    btGeneration = new Button("Next Generation");
+    btGeneration.setOnAction(new GenerationButtonHandler());
+    GenerationButtonText();
+    hbButtons.getChildren().addAll(btGeneration, btReset, btClose);
+    hbButtons.setAlignment(Pos.CENTER_RIGHT);
 
     Canvas canvas = new Canvas((x+1)*SQUARESIZE, (y+1)*SQUARESIZE);
     graphicsContext  = canvas.getGraphicsContext2D();
     graphicsContext.setFill(CELLDEAD);
     graphicsContext.fillRect(0, 0, SQUARESIZE*x,SQUARESIZE*y );
-    vbRoot.getChildren().addAll(canvas//, hbButtons
-            );
+    vbRoot.getChildren().addAll(canvas, hbButtons);
     this.primaryStage = primaryStage;
     primaryStage.setScene(new Scene(vbRoot));
     primaryStage.setTitle("Conway's Game of Life");
+    lifeGrid.show();
     primaryStage.show();
     }
 
@@ -76,25 +80,46 @@ public void start(Stage primaryStage){
         graphicsContext.fillRect(x*SQUARESIZE, y*SQUARESIZE, SQUARESIZE, SQUARESIZE);
     }
 
-//public static void main(String[]args)
-//        {
-//        // Args: x size, y size, filename, number of generations
-//        LifeGrid lifeGrid=new LifeGrid(x,y,fileName);
-//        lifeGrid.show();
-//
-//        if(args.length>3&&args[3]!=null)
-//        {
-//        for(int i=0;i<(Integer.parseInt(args[3])-1);i++)
-//        {
-//        lifeGrid.run();
-//        }
-//        }
-//        }
+    private void GenerationButtonText()
+    {
+        if (cycle != null)
+            btGeneration.setText("Compute Generation " + (lifeGrid.getCurrentGeneration() + cycle));
+    }
 
-//    private class resetButtonHandler implements EventHandler<ActionEvent> {
-//    }
-//
-//    private class closeButtonHandler implements EventHandler<ActionEvent> {
-//    }
+    private class ResetButtonHandler implements EventHandler<ActionEvent> {
+        public void handle (ActionEvent e)
+        {
+
+            graphicsContext.setFill(CELLDEAD);
+            graphicsContext.fillRect(0, 0, SQUARESIZE*x,SQUARESIZE*y );
+            if (fileName != null)
+                lifeGrid = new LifeGrid(x, y, fileName);
+            else
+                lifeGrid = new LifeGrid(x, y);
+            lifeGrid.show();
+            GenerationButtonText();
+        }
+    }
+
+    private class CloseButtonHandler implements EventHandler<ActionEvent> {
+        public void handle (ActionEvent e)
+        {
+            primaryStage.close();
+        }
+    }
+
+    private class GenerationButtonHandler implements EventHandler<ActionEvent> {
+        public void handle (ActionEvent e)
+        {   if (cycle == null)
+            lifeGrid.run();
+            else
+            for(int i=0;i<cycle;i++)
+            {
+                lifeGrid.run();
+
+            }
+            GenerationButtonText();
+        }
+    }
 }
 

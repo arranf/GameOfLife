@@ -42,7 +42,10 @@ class LifeGrid
     }
 
     catch (FileNotFoundException e) {
-      e.printStackTrace();
+
+        e.printStackTrace();
+        System.out.println("Can't find the specified input, reverting to random data.");
+        randomGrid();
     }
 
     currentGeneration = 0;
@@ -54,21 +57,26 @@ class LifeGrid
     grid = new int[y][x];
     neighboursGrid = new int[y][x];
     currentGeneration = 0;
-      for (int i = 0; i < y; i++)
-      {
-          for (int j = 0; j < x; j++)
-          {
-              if (Math.random() < 0.5)
-              {
-                  //grid[y][x]
-                  grid[i][j] = 1;
-              } else
-              {
-                  grid[i][j] = 0;
-              }
-          }
-      }
+      randomGrid();
   }
+
+    public void randomGrid()
+    {
+        for (int i = 0; i < grid.length; i++)
+        {
+            for (int j = 0; j < grid[i].length; j++)
+            {
+                if (Math.random() < 0.5)
+                {
+                    //grid[y][x]
+                    grid[i][j] = 1;
+                } else
+                {
+                    grid[i][j] = 0;
+                }
+            }
+        }
+    }
 
   public void show()
   {
@@ -183,11 +191,11 @@ class LifeGrid
     show();
   }
 
-  public void runFor(int iterations)
-  {
+  public void runFor(int iterations) throws InterruptedException {
     for (int i = 0; i < iterations; i++)
     {
       run();
+        Thread.sleep(500);
     }
   }
 
