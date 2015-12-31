@@ -1,18 +1,16 @@
 Prerequisites:
-Compile LifeGrid and LifeGridTest with java
+Compile LifeGrid and GameOfLife with java
 
-Run LifeGridTest with the command "java LifeGridTest"
+Run GameOfLife with the command "java GameOfLife"
 
-LifeGridTest takes the following parameters (which if used must all be provided):
+GameOfLife takes the following parameters, all of which are optional.
 
-LifeGridTest x y file.txt n
+GameOfLife --x=50 --y=50 --runfor=10 --file="test_blinker.txt"
 
 Where:
 x is the dimensions of the width of the grid
 y is the dimensions of the height of the grid
-file.txt is a *string* which is the source file
-n is the number of generations to produce
+file is a *string* which is the source file to initially populate the grid
+runfor is the number of generations that should be calculated at a time
 
-If no paramters are provided the following defaults will be used
-
-LifeGridTest 10 10 "test.txt" 3
+If no paramters are provided the program will default to a 30 by 30 grid calculating one generation at a time with a random initial seed.
